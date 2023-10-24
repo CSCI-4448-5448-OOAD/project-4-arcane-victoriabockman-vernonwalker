@@ -4,6 +4,7 @@ import java.util.Random;
 import ooad.arcane.Rooms;
 import ooad.arcane.Adventurer.Adventurers;
 import ooad.arcane.GameObservers.GameObserver;
+import ooad.arcane.Creatures.CreaturesFactory;
 
 
 public class Creature {
@@ -19,7 +20,7 @@ public class Creature {
 
         ads = ad;
 
-        creaturesFireborn[0] = new Fireborn(0);
+        creaturesFireborn[0] = createCreatures("Fireborn", 0);
         creaturesFireborn[1] = new Fireborn(1);
         creaturesFireborn[2] = new Fireborn(2);
         creaturesFireborn[3] = new Fireborn(3);

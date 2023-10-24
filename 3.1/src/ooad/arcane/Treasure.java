@@ -37,7 +37,8 @@ public class Treasure {
             // nothing to see here
         }
 
-        if(adventurerRoll >= 11 && currentRoom.treasure != null){
+        // roll of 7 or higher for treasure now
+        if(adventurerRoll >= 7 && currentRoom.treasure != null){
 
             // level up adventurer //
             goodGuy.searchStrategy.LevelUpSearch(goodGuy);

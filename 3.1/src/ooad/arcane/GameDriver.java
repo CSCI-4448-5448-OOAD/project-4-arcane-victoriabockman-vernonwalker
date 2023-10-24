@@ -48,7 +48,7 @@ public class GameDriver {
             
             // Check whether all 24 treasure items are found
             if((ads.fire.treasure.contents.size() + ads.water.treasure.contents.size() + ads.earth.treasure.contents.size() + ads.air.treasure.contents.size()) >= 24){
-                System.out.println("Adventurers won the game by collecting 15000 in treasure!");
+                System.out.println("Adventurers won the game by collecting 24 items in treasure!");
                 break;
             }
 

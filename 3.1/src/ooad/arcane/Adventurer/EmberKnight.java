@@ -7,8 +7,10 @@ import ooad.arcane.TreasureBag.TreasureBag;
 
 public class EmberKnight extends Adventurer {
 
+     // The new user-controlled Adventurer has twice the starting health from previous projects. 
+
     public EmberKnight(GameObserver[] observers_){
-        health = 5;
+        health = 10;
         isAlive = true;
         treasure = new TreasureBag();
 

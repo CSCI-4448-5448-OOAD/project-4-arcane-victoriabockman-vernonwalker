@@ -6,8 +6,10 @@ import ooad.arcane.TreasureBag.TreasureBag;
 
 public class ZephyrRogue extends Adventurer {
 
+     // The new user-controlled Adventurer has twice the starting health from previous projects. 
+
     public ZephyrRogue(GameObserver[] observers_){
-        health = 3;
+        health = 6;
         isAlive = true;
         treasure = new TreasureBag();
 
