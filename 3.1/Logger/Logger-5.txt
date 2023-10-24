@@ -1,0 +1,23 @@
+Ember Knight moved to floor earth room 1-1
+Mist Walker moved to floor earth room 2-2
+Terra Voyager moved to floor earth room 0-0
+Terra Voyager gained their elemental resonance!
+Terra Voyager got damaged. Their health is now 6
+Terra Voyager smashed a TerraVore
+Terra Voyager leveled up to level 0
+Zephyr Rogue moved to floor air room 1-1
+FireBorn moved to floor fire room 1-0
+FireBorn moved to floor fire room 1-2
+FireBorn moved to floor fire room 0-0
+FireBorn moved to floor fire room 0-2
+Aquarid moved to floor water room 0-1
+Aquarid moved to floor water room 2-1
+Aquarid moved to floor water room 1-2
+Aquarid moved to floor water room 1-0
+Zephyral moved to floor air room 1-0
+Zephyral moved to floor air room 0-2
+Zephyral moved to floor air room 2-0
+Zephyral moved to floor air room 2-1
+TerraVore moved to floor earth room 2-1
+TerraVore moved to floor earth room 0-0
+Current Turn:5

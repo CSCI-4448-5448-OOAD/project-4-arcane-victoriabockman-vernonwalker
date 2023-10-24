@@ -1,0 +1,15 @@
+Functional Requirements for the Knowledge Graph:
+
+Make queries
+Suggest new products for the sales team to push
+Direct Customer support questions to documentation 
+Populate Customer support answers
+Validation with Prolog
+Analyze trends in medical equipment
+Suggest new contracts
+
+
+
+
+Start with tinkergraph (tinkerpop, gremlin) Start writing code !!!
+
