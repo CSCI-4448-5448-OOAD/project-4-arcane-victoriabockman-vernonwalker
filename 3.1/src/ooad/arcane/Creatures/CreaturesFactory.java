@@ -4,7 +4,7 @@ package ooad.arcane.Creatures;
 public class CreaturesFactory {
 
     public Creatures createCreatures(String type, int num){
-		if("Fireborn".equalsIgnoreCase(type)){
+		if("Fireborn".equalsIgnoreCase(type)){ 
           return new Fireborn(num);  
         }
 		else if("Aquarid".equalsIgnoreCase(type)){
