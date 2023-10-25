@@ -3,6 +3,7 @@ package ooad.arcane.Creatures;
 import java.util.Random;
 
 import ooad.arcane.Room;
+import ooad.arcane.Adventurer.Adventurer;
 import ooad.arcane.Adventurer.Adventurers;
 
 public class Aquarid extends Creatures{
@@ -14,12 +15,11 @@ public class Aquarid extends Creatures{
         number = num;
     }
 
-    public boolean adventurerPresent(Adventurers ads){
+    public boolean adventurerPresent(Adventurer ad){
 
         boolean adPresent = false;
 
-        if(ads.fire.currentRoom.coordinates.floor == type || ads.water.currentRoom.coordinates.floor == type || 
-        ads.earth.currentRoom.coordinates.floor == type || ads.air.currentRoom.coordinates.floor == type){
+        if(ad.currentRoom.coordinates.floor == type){
 
             adPresent = true;
 
@@ -28,7 +28,7 @@ public class Aquarid extends Creatures{
         return adPresent;
     }
 
-    public void Move(Adventurers ads){
+    public void Move(Adventurer ad){
         // CONDITIONS:
         // If they are in a room adjacent to an Adventurer, they will move into that Adventurer's room.
         // If no Adventurer is adjacent or if an Adventurer is already on their floor, Aquarids won't move.
@@ -58,7 +58,7 @@ public class Aquarid extends Creatures{
         }
 
         if(Moved == false){
-            if(adventurerPresent(ads)){
+            if(adventurerPresent(ad)){
                 // dont move
             }
             else{

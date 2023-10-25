@@ -2,10 +2,13 @@
 # project-4-arcane
 
 Team Members:
-1. Name
-2. Name
+1. Victoria Bockman
+2. Vernon Walker
 
-Java Version:
+Java Version: 21
 
 Additional Comments/Assumptions:
 
+Adventurer moving is still randomized for connected rooms. User does not have control over which room they enter when they choose to move.
+
+Therefore, getting back to the starting room is a random chance?

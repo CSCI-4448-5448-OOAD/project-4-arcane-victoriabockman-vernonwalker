@@ -4,7 +4,14 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
 
+import ooad.arcane.Adventurer.Adventurer;
+import ooad.arcane.Adventurer.AdventurerFactory;
 import ooad.arcane.Adventurer.Adventurers;
+import ooad.arcane.Adventurer.EmberKnight;
+import ooad.arcane.AdventurerCommands.AttackCommand;
+import ooad.arcane.AdventurerCommands.ExitCommand;
+import ooad.arcane.AdventurerCommands.MoveCommand;
+import ooad.arcane.AdventurerCommands.SearchCommand;
 import ooad.arcane.Creatures.Creature;
 import ooad.arcane.GameObservers.GameObserver;
 import ooad.arcane.GameObservers.Logger;
@@ -14,7 +21,6 @@ import ooad.arcane.GameObservers.Tracker;
 public class GameDriver {
 
     public static void main(String[] args) throws FileNotFoundException {
-        // Placeholder comment
 
         File dir = new File("Logger");
         dir.mkdir();
@@ -25,12 +31,14 @@ public class GameDriver {
         }
         Rooms rooms = new Rooms();
         GameObserver[] tracker = new GameObserver[2];
-        tracker[0] = new Tracker();
-        Logger logger = new Logger(0);
+        tracker[0] = Tracker.getInstance();
+        Logger logger = Logger.getInstance(0);
         tracker[1] = logger;
-        Adventurers ads = new Adventurers(rooms, tracker);
-        Creature cres = new Creature(rooms, ads);
+
         int loop = 1;
+
+
+        // Begin the game and user input
 
         System.out.println("Welcome to Dungeon Crawler CSCI4448");
         String name = null;
@@ -46,17 +54,22 @@ public class GameDriver {
             System.out.println("Enter 'Z' for Zephyr Rogue.");
 
             choice = reader.nextLine();
+            choice.toLowerCase(null);
 
-            if (choice.toLowerCase(null) == "e"){
+            if (choice == "e"){
+                choice = "EmberKnight";
                 num = 0;
             }
-            else if(choice.toLowerCase(null) == "m"){
+            else if(choice == "m"){
+                choice = "MistWalker";
                 num = 0;
             }
-            else if(choice.toLowerCase(null) == "t"){
+            else if(choice == "t"){
+                choice = "TerraVoyager";
                 num = 0;
             }
-            else if(choice.toLowerCase(null) == "z"){
+            else if(choice == "z"){
+                choice = "ZephyrRogue";
                 num = 0;
             }
             else{
@@ -67,50 +80,84 @@ public class GameDriver {
 
         // By the time we get here, Player has made a choice.
 
+        // initialize our characters
+        AdventurerFactory AF = new AdventurerFactory();
+
+        Adventurer ad = AF.createAdventurer(choice, rooms, tracker);
+
+        Creature cres = new Creature(rooms, ad);
+
+
+        // have user name their adventurer
         System.out.println("Name your player: ");
 
         Scanner reader = new Scanner(System.in);
 
         name = reader.nextLine();
 
+        ad.name = name;
+
+
+        AttackCommand attackCommand = new AttackCommand(ad); 
+        ExitCommand exitCommand = new ExitCommand(cres, ad);
+        SearchCommand searchCommand = new SearchCommand(ad);
+        MoveCommand moveCommand = new MoveCommand(ad);
 
         while(true){
-
-            logger = new Logger(loop);
+            logger = Logger.getInstance(loop);
             tracker[1] = logger;
-            ads.updateObservers(tracker);
+            ad.updateObservers(tracker);
             cres.updateObservers(tracker);
             System.out.println("Current Loop: " + loop + "\n");
             rooms.printFloor();
-            ads.printAdventurers();
+            ad.printAdventurers(ad.name, ad);
             cres.printCreatures();
-            ads.move();
+
+            // User makes choice here
+
+            int Num = 1;
+            while(Num == 1){
+            System.out.println("Choose your next move!");
+
+            System.out.println("Enter 'S' to Search.");
+            System.out.println("Enter 'M' to Move.");
+            System.out.println("Enter 'A' to Attack.");
+            System.out.println("Enter 'E' to Exit.");
+
+            choice = reader.nextLine();
+            choice.toLowerCase(null);
+
+            if (choice == "s"){
+                Num = 0;
+                searchCommand.execute();
+            }
+            else if(choice == "m"){
+                Num = 0;
+                moveCommand.execute();
+            }
+            else if(choice == "a"){
+                Num = 0;
+                attackCommand.execute();
+            }
+            else if(choice == "e"){
+                Num = 0;
+                exitCommand.execute();
+            }
+            else{
+                System.out.println("Invalid Option. Try again.");
+            }
+
+            }
+
+            
             cres.move();
+
             tracker[0].printTurn(loop);
             tracker[1].printTurn(loop);
             loop++;
             
-            // Check whether all 24 treasure items are found
-            if((ads.fire.treasure.contents.size() + ads.water.treasure.contents.size() + ads.earth.treasure.contents.size() + ads.air.treasure.contents.size()) >= 24){
-                System.out.println("Adventurers won the game by collecting 24 items in treasure!");
-                break;
-            }
-
-            // Check whether adventurers have at least 15000 in treasure points
-            if((ads.fire.treasure.value + ads.water.treasure.value + ads.earth.treasure.value + ads.air.treasure.value) >= 15000){
-                System.out.println("Adventurers won the game by collecting 15000 in treasure!");
-                break;
-            }
-
-            // Adventurers dead
-            if(!ads.fire.isAlive && !ads.water.isAlive && !ads.earth.isAlive && !ads.air.isAlive){
-                System.out.println("Adventurers lost the game by being destoyed by enemies!");
-                break;
-            }
-
-            // Creatures dead
-            if(cres.allDead()){
-                System.out.println("Adventurers won by slaying all their enemies!");
+            if(!ad.isAlive){
+                System.out.println(name +" lost the game by being destoyed by enemies!");
                 break;
             }
 

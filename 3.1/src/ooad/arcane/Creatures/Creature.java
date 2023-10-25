@@ -2,6 +2,7 @@ package ooad.arcane.Creatures;
 
 import java.util.Random;
 import ooad.arcane.Rooms;
+import ooad.arcane.Adventurer.Adventurer;
 import ooad.arcane.Adventurer.Adventurers;
 import ooad.arcane.GameObservers.GameObserver;
 
@@ -12,13 +13,13 @@ public class Creature {
     public Aquarid[] creaturesAquarid = new Aquarid[4];
     public Zephyral[] creaturesZephyral = new Zephyral[4];
     public Terravore[] creaturesTerravore = new Terravore[4];
-    public Adventurers ads;
+    public Adventurer ad;
     public CreaturesFactory CF = new CreaturesFactory();
 
 
-    public Creature(Rooms rooms, Adventurers ad){
+    public Creature(Rooms rooms, Adventurer adv){
 
-        ads = ad;
+        ad = adv;
 
         creaturesFireborn[0] = (Fireborn) CF.createCreatures("Fireborn", 0);
         creaturesFireborn[1] = (Fireborn) CF.createCreatures("Fireborn", 1);
@@ -123,12 +124,12 @@ public class Creature {
     public void move(){
         for(int i = 0; i < 4; i++){
             if(creaturesFireborn[i].isAlive == true){
-                creaturesFireborn[i].Move(ads);
+                creaturesFireborn[i].Move(ad);
             }
         }
         for(int i = 0; i < 4; i++){
             if(creaturesAquarid[i].isAlive == true){
-                creaturesAquarid[i].Move(ads);
+                creaturesAquarid[i].Move(ad);
             }
         }
         for(int i = 0; i < 4; i++){
