@@ -49,12 +49,12 @@ public class Tracker implements GameObserver {
         this.inResonance = new ArrayList<>();
     }
 
-    public static Tracker getInstance(){
+    public synchronized static Tracker getInstance(){
 
         if(tracker == null){
             tracker = new Tracker();
         }
-        
+
         return tracker;
     }
 

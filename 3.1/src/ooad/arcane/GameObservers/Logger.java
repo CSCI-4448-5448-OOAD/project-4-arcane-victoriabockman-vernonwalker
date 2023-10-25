@@ -9,12 +9,21 @@ import java.io.PrintWriter;
 // Logger class which captures observer updates and puts them into a new text file for each turn.
 public class Logger implements GameObserver {
 
+
+    // Singleton instance
+    private static Logger singletonInstance;
+
     // PrintWriter object which I use to print updates to a text file
     private PrintWriter output;
 
-
+    synchronized public static Logger getInstance(int n) throws FileNotFoundException{
+        if(singletonInstance == null){
+            singletonInstance = new Logger(n);
+        }
+        return singletonInstance;
+    }
     // Constructor, takes in iteration counter to create a new text file.
-    public Logger(int iteration) throws FileNotFoundException{
+    private Logger(int iteration) throws FileNotFoundException{
 
 
         String file_path = "Logger/Logger-" + iteration + ".txt";
