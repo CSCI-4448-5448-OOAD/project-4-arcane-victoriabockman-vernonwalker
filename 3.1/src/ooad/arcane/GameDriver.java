@@ -1,6 +1,7 @@
 package ooad.arcane;
 
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.io.File;
 
 import ooad.arcane.Adventurer.Adventurers;
@@ -30,6 +31,49 @@ public class GameDriver {
         Adventurers ads = new Adventurers(rooms, tracker);
         Creature cres = new Creature(rooms, ads);
         int loop = 1;
+
+        System.out.println("Welcome to Dungeon Crawler CSCI4448");
+        String name = null;
+        String choice = null;
+        int num = 1;
+        while(num == 1){
+            System.out.println("Choose your player!");
+
+            Scanner reader = new Scanner(System.in);
+            System.out.println("Enter 'E' for Ember Knight.");
+            System.out.println("Enter 'M' for Mist Walker.");
+            System.out.println("Enter 'T' for Terra Voyager.");
+            System.out.println("Enter 'Z' for Zephyr Rogue.");
+
+            choice = reader.nextLine();
+
+            if (choice.toLowerCase(null) == "e"){
+                num = 0;
+            }
+            else if(choice.toLowerCase(null) == "m"){
+                num = 0;
+            }
+            else if(choice.toLowerCase(null) == "t"){
+                num = 0;
+            }
+            else if(choice.toLowerCase(null) == "z"){
+                num = 0;
+            }
+            else{
+                System.out.println("Invalid Option. Try again.");
+            }
+
+        }
+
+        // By the time we get here, Player has made a choice.
+
+        System.out.println("Name your player: ");
+
+        Scanner reader = new Scanner(System.in);
+
+        name = reader.nextLine();
+
+
         while(true){
 
             logger = new Logger(loop);
