@@ -16,12 +16,19 @@ public class Logger implements GameObserver {
     // PrintWriter object which I use to print updates to a text file
     private PrintWriter output;
 
+    // Singleton creater/getter
     synchronized public static Logger getInstance(int n) throws FileNotFoundException{
         if(singletonInstance == null){
             singletonInstance = new Logger(n);
         }
         return singletonInstance;
     }
+
+    // Singleton deleter (so that we can make others)
+    public void loggerDeleter(){
+        singletonInstance = null;
+    }
+
     // Constructor, takes in iteration counter to create a new text file.
     private Logger(int iteration) throws FileNotFoundException{
 
@@ -45,24 +52,10 @@ public class Logger implements GameObserver {
 
     }
 
-    // Same as above except with adventurers
-    private String getAdventurerName(String type){
-
-        String name; 
-
-        if(type == "fire"){name = "Ember Knight";}
-        else if(type == "water"){name = "Mist Walker";}
-        else if(type == "air"){name = "Zephyr Rogue";}
-        else{name = "Terra Voyager";}
-
-        return name;
-
-    }
-
     // method which prints the update if adventurer moves and prints where they moved to
     public void adventurerMoved(Adventurer adventurer){
 
-        String name = getAdventurerName(adventurer.type);
+        String name = adventurer.name;
 
         output.println(name + " moved to floor " + adventurer.currentRoom.coordinates.floor
         + " room " + adventurer.currentRoom.coordinates.x + "-" + adventurer.currentRoom.coordinates.y);
@@ -80,7 +73,7 @@ public class Logger implements GameObserver {
     // prints an update where a creature was killed by an adventurer
     public void adventurerWonCombat(Adventurer adventurer, Creatures creature){
 
-        String ad_name = getAdventurerName(adventurer.type);
+        String ad_name = adventurer.name;
         String cr_name = getCreatureName(creature.type);
 
         output.println(ad_name + " smashed a " + cr_name);
@@ -89,7 +82,7 @@ public class Logger implements GameObserver {
     // prints an update where an adventurer was killed by a creature
     public void creatureWonCombat(Adventurer adventurer, Creatures creature){
 
-        String ad_name = getAdventurerName(adventurer.type);
+        String ad_name = adventurer.name;
         String cr_name = getCreatureName(creature.type);
 
         output.println(ad_name + " was killed by a " + cr_name);
@@ -98,7 +91,7 @@ public class Logger implements GameObserver {
     // prints an update where an adventurer's combat skill level increased.
     public void adventurerLeveledUp(Adventurer adventurer){
 
-        String ad_name = getAdventurerName(adventurer.type);
+        String ad_name = adventurer.name;
 
         output.println(ad_name + " leveled up to level " + adventurer.level);
     }
@@ -106,7 +99,7 @@ public class Logger implements GameObserver {
     // method which prints when an adventurer gains resonance
     public void adventurerGainedResonance(Adventurer adventurer){
 
-        String ad_name = getAdventurerName(adventurer.type);
+        String ad_name = adventurer.name;
 
         output.println(ad_name + " gained their elemental resonance!");
     }
@@ -114,7 +107,7 @@ public class Logger implements GameObserver {
     // method which prints when an adventurer enters a floor which gives them discord
     public void adventurerGainedDiscord(Adventurer adventurer){
 
-        String ad_name = getAdventurerName(adventurer.type);
+        String ad_name = adventurer.name;
 
         output.println(ad_name + " is now afflicted by their elemental discord");
     }
@@ -122,7 +115,7 @@ public class Logger implements GameObserver {
     // method which prints when an adventurer loses health in battle
     public void adventurerLostHealth(Adventurer adventurer){
 
-        String ad_name = getAdventurerName(adventurer.type);
+        String ad_name = adventurer.name;
 
         output.println(ad_name + " got damaged. Their health is now " + adventurer.health); // <--- IMPLEMENT THIS
     }
@@ -130,7 +123,7 @@ public class Logger implements GameObserver {
     // method which prints when an adventurer finds treasure (only non-gem items)
     public void adventurerFoundTreasure(Adventurer adventurer){
 
-        String ad_name = getAdventurerName(adventurer.type);
+        String ad_name = adventurer.name;
 
         // IMPLEMENT THE TREASUREBAG FIRST
         if(adventurer.treasure.contents.size() == 0){

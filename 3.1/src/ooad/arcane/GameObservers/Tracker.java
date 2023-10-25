@@ -6,10 +6,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 import ooad.arcane.Adventurer.Adventurer;
-import ooad.arcane.Adventurer.EmberKnight;
-import ooad.arcane.Adventurer.MistWalker;
-import ooad.arcane.Adventurer.TerraVoyager;
-import ooad.arcane.Adventurer.ZephyrRogue;
+import ooad.arcane.Adventurer.AdventurerFactory;
 import ooad.arcane.Creatures.Aquarid;
 import ooad.arcane.Creatures.Creatures;
 import ooad.arcane.Creatures.Fireborn;
@@ -25,6 +22,8 @@ public class Tracker implements GameObserver {
 
     Dictionary<String, Adventurer> adventurerDictionary;
 
+    Adventurer adventurer;
+
     // CreatureMap class object defined below this class
     CreatureMap creatureMap;
 
@@ -33,26 +32,29 @@ public class Tracker implements GameObserver {
     // Same as above except in resonance
     ArrayList<Adventurer> inResonance;
 
+    // adventurer factory
+    AdventurerFactory ad_factory;
+
+
     // Constructor
-    private Tracker(){
+    private Tracker(Adventurer adv){
+
+        ad_factory = new AdventurerFactory();
+        Adventurer adventurer = AdventurerFactory.createAdventurer(adv.type, adv.rooms_ad, null);
         this.adventurerDictionary = new Hashtable<>();
 
-        GameObserver[] empty = new GameObserver[0];
-
-        this.adventurerDictionary.put("fire", new EmberKnight(empty));
-        this.adventurerDictionary.put("water", new MistWalker(empty));
-        this.adventurerDictionary.put("air", new ZephyrRogue(empty));
-        this.adventurerDictionary.put("earth", new TerraVoyager(empty));
+        this.adventurerDictionary.put(adv.name, adventurer);
 
         this.creatureMap = new CreatureMap();
         this.inDiscord = new ArrayList<>();
         this.inResonance = new ArrayList<>();
+        this.adventurer = adv;
     }
 
-    public synchronized static Tracker getInstance(){
+    public synchronized static Tracker getInstance(Adventurer adv){
 
         if(tracker == null){
-            tracker = new Tracker();
+            tracker = new Tracker(adv);
         }
 
         return tracker;
@@ -75,12 +77,12 @@ public class Tracker implements GameObserver {
 
     // updates adventurer dicionary when an adventurer dies
     public void creatureWonCombat(Adventurer adventurer, Creatures creature){
-        this.adventurerDictionary.get(adventurer.type).isAlive = false;
+        this.adventurerDictionary.get(adventurer.name).isAlive = false;
     }
 
     // updates an adventurer level when that adventurer's combat level increases
     public void adventurerLeveledUp(Adventurer adventurer){
-        this.adventurerDictionary.get(adventurer.type).level += 1; // <-- UPDATE THIS TO MATCH ATTACK LEVEL AND SEARCH LEVEL
+        this.adventurerDictionary.get(adventurer.name).level += 1; // <-- UPDATE THIS TO MATCH ATTACK LEVEL AND SEARCH LEVEL
     }
 
     // updates the inResonance list when an adventurer gets resonance
@@ -95,7 +97,7 @@ public class Tracker implements GameObserver {
 
     // updates health on adventurer upon losing health
     public void adventurerLostHealth(Adventurer adventurer){
-        this.adventurerDictionary.get(adventurer.type).health = adventurer.health;
+        this.adventurerDictionary.get(adventurer.name).health = adventurer.health;
     }
 
     // updates adventurer treasure when adventurer pickes up treasure (except gems)
@@ -105,8 +107,8 @@ public class Tracker implements GameObserver {
 
         }else{
 
-            this.adventurerDictionary.get(adventurer.type).treasure.contents.add(adventurer.treasure.contents.get(adventurer.treasure.contents.size()-1));
-            this.adventurerDictionary.get(adventurer.type).treasure.value = adventurer.treasure.value;
+            this.adventurerDictionary.get(adventurer.name).treasure.contents.add(adventurer.treasure.contents.get(adventurer.treasure.contents.size()-1));
+            this.adventurerDictionary.get(adventurer.name).treasure.value = adventurer.treasure.value;
 
         }
     }
@@ -122,11 +124,9 @@ public class Tracker implements GameObserver {
             Number of active adventurers: """ + numActiveAdventurers() + """
                 
             Adventurers   |  Room   |  Health   |  Treasure  |  Treasure Value
-            EmberKnight""" + "  |  " + getCoords("fire") + "  |  " + getHealth("fire") + "  |  " + getTreasure("fire") + "  |  " + getValue("fire") + "\n" + """
-            MistWalker""" + "  |  "+ getCoords("water") + "  |  " + getHealth("water") + "  |  " + getTreasure("water") + " |   " + getValue("water") +"\n" + """
-            ZephyrRogue""" + "  |  "+ getCoords("air") + "  |  " + getHealth("air") + "  |  " + getTreasure("air") + "  |  " + getValue("air") + "\n" +"""
-            TerraVoyager""" + "  |  "+ getCoords("earth") + "  |  " + getHealth("earth") + "  |  " + getTreasure("earth") + "  |  " + getValue("earth") +"\n" + """
-
+            - """ + adventurer.name + "   |   " + getCoords(adventurer.name) + "   |   " + getHealth(adventurer.name) + "   |   " + getTreasure(adventurer.name) + "   |   " + getValue(adventurer.name) + """
+                    
+            \n
             Resonance: \n"""
             + printResonance() + """
 
@@ -212,18 +212,7 @@ public class Tracker implements GameObserver {
 
         String s = "";
         for(int i = 0; i < this.inResonance.size(); i++){
-            if(inResonance.get(i).type == "fire"){
-                s += "EmberKnight\n";
-            }
-            else if(inResonance.get(i).type == "water"){
-                s += "MistWalker\n";
-            }
-            else if(inResonance.get(i).type == "air"){
-                s += "ZephyrRogue\n";
-            }
-            else{
-                s += "TerraVoyager\n";
-            }
+            s += inResonance.get(i).name + "\n";
         }
 
         return s;
@@ -234,18 +223,7 @@ public class Tracker implements GameObserver {
 
         String s = "";
         for(int i = 0; i < this.inDiscord.size(); i++){
-            if(inDiscord.get(i).type == "fire"){
-                s += "EmberKnight\n";
-            }
-            else if(inDiscord.get(i).type == "water"){
-                s += "MistWalker\n";
-            }
-            else if(inDiscord.get(i).type == "air"){
-                s += "ZephyrRogue\n";
-            }
-            else{
-                s += "TerraVoyager\n";
-            }
+           s += inDiscord.get(i).name + "\n";
         }
 
         return s;
