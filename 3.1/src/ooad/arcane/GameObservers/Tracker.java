@@ -20,6 +20,9 @@ import ooad.arcane.Creatures.Zephyral;
 // Tracker class which uses dictionaries to store all relevent data on the adventurers and creatures
 public class Tracker implements GameObserver {
 
+    // Singleton instance
+    private static Tracker tracker;
+
     Dictionary<String, Adventurer> adventurerDictionary;
 
     // CreatureMap class object defined below this class
@@ -31,7 +34,7 @@ public class Tracker implements GameObserver {
     ArrayList<Adventurer> inResonance;
 
     // Constructor
-    public Tracker(){
+    private Tracker(){
         this.adventurerDictionary = new Hashtable<>();
 
         GameObserver[] empty = new GameObserver[0];
@@ -44,6 +47,15 @@ public class Tracker implements GameObserver {
         this.creatureMap = new CreatureMap();
         this.inDiscord = new ArrayList<>();
         this.inResonance = new ArrayList<>();
+    }
+
+    public static Tracker getInstance(){
+
+        if(tracker == null){
+            tracker = new Tracker();
+        }
+        
+        return tracker;
     }
 
     // updates adventurer dictionary when an adventurer moves
