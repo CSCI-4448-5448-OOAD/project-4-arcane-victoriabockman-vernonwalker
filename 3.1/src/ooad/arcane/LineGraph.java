@@ -1,45 +1,51 @@
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
+package ooad.arcane;
 
-public class LineGraph extends ApplicationFrame {
-
-   public LineGraph( String applicationTitle , String chartTitle ) {
-      super(applicationTitle);
-      JFreeChart lineChart = ChartFactory.createLineChart(
-         chartTitle,
-         "Years","Number of Schools",
-         createDataset(),
-         PlotOrientation.VERTICAL,
-         true,true,false);
-         
-      ChartPanel chartPanel = new ChartPanel( lineChart );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-      setContentPane( chartPanel );
-   }
-
-   private DefaultCategoryDataset createDataset( ) {
-      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-      dataset.addValue( 15 , "schools" , "1970" );
-      dataset.addValue( 30 , "schools" , "1980" );
-      dataset.addValue( 60 , "schools" ,  "1990" );
-      dataset.addValue( 120 , "schools" , "2000" );
-      dataset.addValue( 240 , "schools" , "2010" );
-      dataset.addValue( 300 , "schools" , "2014" );
-      return dataset;
-   }
-   
-   public static void main( String[ ] args ) {
-      LineChart_AWT chart = new LineChart_AWT(
-         "School Vs Years" ,
-         "Numer of Schools vs years");
-
-      chart.pack( );
-      RefineryUtilities.centerFrameOnScreen( chart );
-      chart.setVisible( true );
-   }
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
+ 
+ 
+public class LineGraph extends Application {
+ 
+    @Override public void start(Stage stage) {
+        stage.setTitle("Line Chart Sample");
+        //defining the axes
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Number of Month");
+        //creating the chart
+        final LineChart<Number,Number> lineChart = 
+                new LineChart<Number,Number>(xAxis,yAxis);
+                
+        lineChart.setTitle("Stock Monitoring, 2010");
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        series.setName("My portfolio");
+        //populating the series with data
+        series.getData().add(new XYChart.Data(1, 23));
+        series.getData().add(new XYChart.Data(2, 14));
+        series.getData().add(new XYChart.Data(3, 15));
+        series.getData().add(new XYChart.Data(4, 24));
+        series.getData().add(new XYChart.Data(5, 34));
+        series.getData().add(new XYChart.Data(6, 36));
+        series.getData().add(new XYChart.Data(7, 22));
+        series.getData().add(new XYChart.Data(8, 45));
+        series.getData().add(new XYChart.Data(9, 43));
+        series.getData().add(new XYChart.Data(10, 17));
+        series.getData().add(new XYChart.Data(11, 29));
+        series.getData().add(new XYChart.Data(12, 25));
+        
+        Scene scene  = new Scene(lineChart,800,600);
+        lineChart.getData().add(series);
+       
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
