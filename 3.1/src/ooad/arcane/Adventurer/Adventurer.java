@@ -219,7 +219,7 @@ public abstract class Adventurer {
 
     public void printAdventurers(String name, Adventurer ad){
 
-        String s = name + ad.treasure.value + " Treasure(s) - " + ad.health + " Health Remaining\n";
+        String s = name + " " + ad.treasure.value + " Treasure(s) - " + ad.health + " Health Remaining\n";
 
         System.out.println(s);
 
