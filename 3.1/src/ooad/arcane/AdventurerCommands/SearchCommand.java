@@ -2,6 +2,8 @@ package ooad.arcane.AdventurerCommands;
 
 import ooad.arcane.Adventurer.Adventurer;
 
+// Search Command
+
 public class SearchCommand implements AdventurerCommand{
     private Adventurer adventurer;
 

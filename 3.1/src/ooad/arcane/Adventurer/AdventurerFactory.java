@@ -3,6 +3,8 @@ package ooad.arcane.Adventurer;
 import ooad.arcane.Rooms;
 import ooad.arcane.GameObservers.GameObserver;
 
+// Factory Pattern For Adventurers
+
 public class AdventurerFactory {
 
 	public static Adventurer createAdventurer(String type, Rooms rooms, GameObserver[] observers){

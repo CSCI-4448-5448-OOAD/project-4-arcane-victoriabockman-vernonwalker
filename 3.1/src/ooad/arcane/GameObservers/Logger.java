@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 // Logger class which captures observer updates and puts them into a new text file for each turn.
 public class Logger implements GameObserver {
 
+    // Singleton Pattern!
 
     // Singleton instance
     private static Logger singletonInstance;

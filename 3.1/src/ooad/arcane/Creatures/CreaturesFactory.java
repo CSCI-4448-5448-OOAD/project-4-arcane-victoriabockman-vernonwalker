@@ -1,5 +1,6 @@
 package ooad.arcane.Creatures;
 
+// Factory Pattern for Creatures
 
 public class CreaturesFactory {
 
