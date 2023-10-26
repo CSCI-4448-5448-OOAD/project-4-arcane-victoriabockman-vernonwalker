@@ -6,8 +6,6 @@ import java.io.File;
 
 import ooad.arcane.Adventurer.Adventurer;
 import ooad.arcane.Adventurer.AdventurerFactory;
-import ooad.arcane.Adventurer.Adventurers;
-import ooad.arcane.Adventurer.EmberKnight;
 import ooad.arcane.AdventurerCommands.AttackCommand;
 import ooad.arcane.AdventurerCommands.ExitCommand;
 import ooad.arcane.AdventurerCommands.MoveCommand;
@@ -31,7 +29,7 @@ public class GameDriver {
         }
         Rooms rooms = new Rooms();
         GameObserver[] tracker = new GameObserver[2];
-        tracker[0] = Tracker.getInstance();
+        tracker[0] = null;
         Logger logger = Logger.getInstance(0);
         tracker[1] = logger;
 
@@ -81,9 +79,10 @@ public class GameDriver {
         // By the time we get here, Player has made a choice.
 
         // initialize our characters
-        AdventurerFactory AF = new AdventurerFactory();
 
-        Adventurer ad = AF.createAdventurer(choice, rooms, tracker);
+        Adventurer ad = AdventurerFactory.createAdventurer(choice, rooms, tracker);
+        tracker[0] = Tracker.getInstance(ad);
+        ad.updateObservers(tracker);
 
         Creature cres = new Creature(rooms, ad);
 
@@ -162,6 +161,7 @@ public class GameDriver {
             }
 
             tracker[1].closeFile();
+            tracker[1].loggerDeleter();
         }    
     }
 

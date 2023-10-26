@@ -229,8 +229,12 @@ public class Tracker implements GameObserver {
         return s;
     }
 
-    // needed to be implemented to appease the interface gods
+    // both below functions needed to be implemented to appease the interface gods
     public void closeFile(){
+        // do nothing
+    }
+
+    public void loggerDeleter(){
         // do nothing
     }
 
