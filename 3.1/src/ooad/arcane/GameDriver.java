@@ -42,34 +42,35 @@ public class GameDriver {
         String name = null;
         String choice = null;
         int num = 1;
+        Scanner reader = new Scanner(System.in);
         while(num == 1){
+
             System.out.println("Choose your player!");
 
-            Scanner reader = new Scanner(System.in);
             System.out.println("Enter 'E' for Ember Knight.");
             System.out.println("Enter 'M' for Mist Walker.");
             System.out.println("Enter 'T' for Terra Voyager.");
             System.out.println("Enter 'Z' for Zephyr Rogue.");
 
-            choice = reader.nextLine();
-            choice.toLowerCase(null);
-            reader.close();
+            choice = (String)reader.nextLine();
+            choice = choice.trim();
+            choice = choice.toLowerCase();
 
-            if (choice == "e"){
-                choice = "EmberKnight";
-                num = 0;
+            if (choice.equals("e")){
+                choice = "fire";
+                break;
             }
-            else if(choice == "m"){
-                choice = "MistWalker";
-                num = 0;
+            else if(choice.equals("m")){
+                choice = "water";
+                break;
             }
-            else if(choice == "t"){
-                choice = "TerraVoyager";
-                num = 0;
+            else if(choice.equals("t")){
+                choice = "earth";
+                break;
             }
-            else if(choice == "z"){
-                choice = "ZephyrRogue";
-                num = 0;
+            else if(choice.equals("z")){
+                choice = "air";
+                break;
             }
             else{
                 System.out.println("Invalid Option. Try again.");
@@ -82,9 +83,6 @@ public class GameDriver {
         // initialize our characters
 
         Adventurer ad = AdventurerFactory.createAdventurer(choice, rooms, tracker);
-        // eager instantiation of tracker object (because we know we will need it)
-        tracker[0] = Tracker.getInstance(ad);
-        ad.updateObservers(tracker);
 
         Creature cres = new Creature(rooms, ad);
 
@@ -92,12 +90,16 @@ public class GameDriver {
         // have user name their adventurer
         System.out.println("Name your player: ");
 
-        Scanner reader = new Scanner(System.in);
-
         name = reader.nextLine();
-        reader.close();
 
-        ad.name = name;
+        ad.name = name.trim();
+
+        System.out.println(ad.name);
+
+        // eager instantiation of tracker object (because we know we will need it)
+        tracker[0] = Tracker.getInstance(ad);
+        ad.updateObservers(tracker);
+        
 
 
         AttackCommand attackCommand = new AttackCommand(ad); 
@@ -131,24 +133,27 @@ public class GameDriver {
                 System.out.println("Enter 'S' to Search.");
                 System.out.println("Enter 'M' to Move.");
                 System.out.println("Enter 'A' to Attack.");
-                System.out.println("Enter 'E' to Exit.");
+                if(ad.currentRoom == rooms.startingRoom){
+                    System.out.println("Enter 'E' to Exit.");
+                }
 
                 choice = reader.nextLine();
-                choice.toLowerCase(null);
+                choice = choice.trim();
+                choice = choice.toLowerCase();
 
-                if (choice == "s"){
+                if (choice.equals("s")){
                     Num = 0;
                     searchCommand.execute();
                 }
-                else if(choice == "m"){
+                else if(choice.equals("m")){
                     Num = 0;
                     moveCommand.execute();
                 }
-                else if(choice == "a"){
+                else if(choice.equals("a")){
                     Num = 0;
                     attackCommand.execute();
                 }
-                else if(choice == "e"){
+                else if((choice.equals("e")) && (ad.currentRoom == rooms.startingRoom)){
                     Num = 0;
                     exitCommand.execute();
                 }
@@ -175,7 +180,9 @@ public class GameDriver {
             // close logger file and delete singleton instance
             tracker[1].closeFile();
             tracker[1].loggerDeleter();
-        }    
+        }
+        
+        reader.close();
     }
 
 }

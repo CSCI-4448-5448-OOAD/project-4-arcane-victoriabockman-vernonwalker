@@ -10,6 +10,8 @@ public class ZephyrRogue extends Adventurer {
      // The new user-controlled Adventurer has twice the starting health from previous projects. 
 
     public ZephyrRogue(GameObserver[] observers_, Rooms rooms){
+
+        System.out.println("here");
         health = 6;
         isAlive = true;
         treasure = new TreasureBag();
@@ -20,7 +22,11 @@ public class ZephyrRogue extends Adventurer {
         dodgeChance = 0.25F;
 
 
-        currentRoom = null;
+        if(rooms != null){
+            currentRoom = rooms.startingRoom;
+            rooms.startingRoom.alliedOccupants.add(this);
+        }
+
 
         badRoomType = "earth";
         goodRoomType = "air";

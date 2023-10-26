@@ -64,6 +64,10 @@ public abstract class Adventurer {
     public void Move(){
         // randomly chooses 1 room from the set of all adjacent rooms which the adventurer moves to
 
+        if(!this.currentRoom.evilOccupants.isEmpty()){
+            this.health -= this.currentRoom.evilOccupants.size();
+            notify("adventurerLostHealth");
+        }
         int size = this.currentRoom.allAdjacentRooms.size();
 
         Random rand = new Random();

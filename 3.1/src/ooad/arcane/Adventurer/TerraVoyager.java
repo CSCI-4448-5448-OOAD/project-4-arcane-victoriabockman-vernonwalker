@@ -18,7 +18,11 @@ public class TerraVoyager extends Adventurer {
 
         dodgeChance = 0.1F;
 
-        currentRoom = null;
+        if(rooms != null){
+            currentRoom = rooms.startingRoom;
+            rooms.startingRoom.alliedOccupants.add(this);
+        }
+
 
         badRoomType = "fire";
         goodRoomType = "earth";

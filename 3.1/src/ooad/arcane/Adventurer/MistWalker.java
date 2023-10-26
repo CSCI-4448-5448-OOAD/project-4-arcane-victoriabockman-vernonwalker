@@ -18,7 +18,11 @@ public class MistWalker extends Adventurer {
 
 
         dodgeChance = 0.5F;
-        currentRoom = null;
+
+        if(rooms != null){
+            currentRoom = rooms.startingRoom;
+            rooms.startingRoom.alliedOccupants.add(this);
+        }
 
         badRoomType = "air";
         goodRoomType = "water";

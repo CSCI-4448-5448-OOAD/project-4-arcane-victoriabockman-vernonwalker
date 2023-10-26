@@ -4,6 +4,7 @@
 ./src/ooad/arcane//Adventurer/EmberKnight.java
 ./src/ooad/arcane//Adventurer/Adventurers.java
 ./src/ooad/arcane//Adventurer/Adventurer.java
+./src/ooad/arcane//Adventurer/AdventurerFactory.java
 ./src/ooad/arcane//Adventurer/ZephyrRogue.java
 ./src/ooad/arcane//Adventurer/MistWalker.java
 ./src/ooad/arcane//RollBonus/VeteranStrategy.java
@@ -26,10 +27,16 @@
 ./src/ooad/arcane//GameObservers/Tracker.java
 ./src/ooad/arcane//Rooms.java
 ./src/ooad/arcane//GameDriver.java
+./src/ooad/arcane//AdventurerCommands/AttackCommand.java
+./src/ooad/arcane//AdventurerCommands/SearchCommand.java
+./src/ooad/arcane//AdventurerCommands/ExitCommand.java
+./src/ooad/arcane//AdventurerCommands/AdventurerCommand.java
+./src/ooad/arcane//AdventurerCommands/MoveCommand.java
 ./src/ooad/arcane//Creatures/Creature.java
 ./src/ooad/arcane//Creatures/Aquarid.java
 ./src/ooad/arcane//Creatures/Creatures.java
 ./src/ooad/arcane//Creatures/Terravore.java
 ./src/ooad/arcane//Creatures/Zephyral.java
 ./src/ooad/arcane//Creatures/Fireborn.java
+./src/ooad/arcane//Creatures/CreaturesFactory.java
 ./src/ooad/arcane//Floor.java

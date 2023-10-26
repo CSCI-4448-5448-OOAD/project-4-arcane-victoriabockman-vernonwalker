@@ -18,7 +18,11 @@ public class EmberKnight extends Adventurer {
         type = "fire";
 
         dodgeChance = 0.2F;
-        currentRoom = null;
+        
+        if(rooms != null){
+            currentRoom = rooms.startingRoom;
+            rooms.startingRoom.alliedOccupants.add(this);
+        }
 
         badRoomType = "water";
         goodRoomType = "fire";

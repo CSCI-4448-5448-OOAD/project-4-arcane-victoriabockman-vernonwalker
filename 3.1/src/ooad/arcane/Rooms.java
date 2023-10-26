@@ -118,26 +118,25 @@ public class Rooms {
     // Method which defines how to print the starting room
     private void printStartingRoom(){
 
-
         String advens = "";
         if(startingRoom.alliedOccupants.isEmpty()){
             advens = "-";
         }
         else{
             for(int i = 0; i < this.startingRoom.alliedOccupants.size(); i++){
-            if(this.startingRoom.alliedOccupants.get(i).type == "fire"){
-                advens += "EK,";
+                if(this.startingRoom.alliedOccupants.get(i).type == "fire"){
+                    advens += "EK,";
+                }
+                if(this.startingRoom.alliedOccupants.get(i).type == "water"){
+                    advens += "MW,";
+                }
+                if(this.startingRoom.alliedOccupants.get(i).type == "earth"){
+                    advens += "TV,";
+                }
+                if(this.startingRoom.alliedOccupants.get(i).type == "air"){
+                    advens += "ZR,";
+                }
             }
-            if(this.startingRoom.alliedOccupants.get(i).type == "water"){
-                advens += "MW,";
-            }
-            if(this.startingRoom.alliedOccupants.get(i).type == "earth"){
-                advens += "TV,";
-            }
-            if(this.startingRoom.alliedOccupants.get(i).type == "air"){
-                advens += "ZR,";
-            }
-        }
         }
 
         String s = "starting Room:\n" + 

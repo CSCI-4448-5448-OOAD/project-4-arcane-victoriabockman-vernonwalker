@@ -39,11 +39,11 @@ public class Tracker implements GameObserver {
     // Constructor
     private Tracker(Adventurer adv){
 
-        ad_factory = new AdventurerFactory();
-        Adventurer adventurer = AdventurerFactory.createAdventurer(adv.type, adv.rooms_ad, null);
+        Adventurer adven = AdventurerFactory.createAdventurer(adv.type, null, null);
+
         this.adventurerDictionary = new Hashtable<>();
 
-        this.adventurerDictionary.put(adv.name, adventurer);
+        this.adventurerDictionary.put(adv.name, adven);
 
         this.creatureMap = new CreatureMap();
         this.inDiscord = new ArrayList<>();
@@ -62,7 +62,7 @@ public class Tracker implements GameObserver {
 
     // updates adventurer dictionary when an adventurer moves
     public void adventurerMoved(Adventurer adventurer){
-        this.adventurerDictionary.get(adventurer.type).currentRoom = adventurer.currentRoom;
+        this.adventurerDictionary.get(adventurer.name).currentRoom = adventurer.currentRoom;
     }
 
     // updates creaturemap object when creature moves
