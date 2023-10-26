@@ -11,4 +11,8 @@ Additional Comments/Assumptions:
 
 Adventurer moving is still randomized for connected rooms. User does not have control over which room they enter when they choose to move.
 
-Therefore, getting back to the starting room is a random chance?
+Therefore, getting back to the starting room is a random chance.
+
+Factory Pattern was used over Abstract Factory for Creatures and Adventurers.
+
+

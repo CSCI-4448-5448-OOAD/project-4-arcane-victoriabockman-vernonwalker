@@ -17,6 +17,8 @@ import ooad.arcane.Creatures.Zephyral;
 // Tracker class which uses dictionaries to store all relevent data on the adventurers and creatures
 public class Tracker implements GameObserver {
 
+    // Singleton Pattern!
+
     // Singleton instance
     private static Tracker tracker;
 

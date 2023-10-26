@@ -2,6 +2,8 @@ package ooad.arcane.AdventurerCommands;
 
 import ooad.arcane.Adventurer.Adventurer;
 
+// Attack Command
+
 public class AttackCommand implements AdventurerCommand{
     private Adventurer adventurer;
 

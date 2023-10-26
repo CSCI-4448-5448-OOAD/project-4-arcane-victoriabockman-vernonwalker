@@ -3,6 +3,8 @@ package ooad.arcane.AdventurerCommands;
 import ooad.arcane.Adventurer.Adventurer;
 import ooad.arcane.Creatures.Creature;
 
+// Exit Command
+
 public class ExitCommand implements AdventurerCommand {
     private Creature creatures;
     private Adventurer adventurer;
