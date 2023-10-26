@@ -3,7 +3,6 @@ package ooad.arcane.Creatures;
 import java.util.Random;
 import ooad.arcane.Rooms;
 import ooad.arcane.Adventurer.Adventurer;
-import ooad.arcane.Adventurer.Adventurers;
 import ooad.arcane.GameObservers.GameObserver;
 
 

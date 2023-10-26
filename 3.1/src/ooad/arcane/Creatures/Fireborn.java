@@ -3,7 +3,7 @@ package ooad.arcane.Creatures;
 import java.util.Random;
 
 import ooad.arcane.Room;
-import ooad.arcane.Adventurer.Adventurers;
+import ooad.arcane.Adventurer.Adventurer;
 
 public class Fireborn extends Creatures{
 
@@ -14,12 +14,11 @@ public class Fireborn extends Creatures{
         number = num;
     }
 
-    public boolean adventurerPresent(Adventurers ads){
+    public boolean adventurerPresent(Adventurer ad){
 
         boolean adPresent = false;
 
-        if(ads.fire.currentRoom.coordinates.floor == type || ads.water.currentRoom.coordinates.floor == type || 
-        ads.earth.currentRoom.coordinates.floor == type || ads.air.currentRoom.coordinates.floor == type){
+        if(ad.currentRoom.coordinates.floor.toLowerCase().equals("fire")){
 
             adPresent = true;
 
@@ -28,14 +27,14 @@ public class Fireborn extends Creatures{
         return adPresent;
     }
 
-    public void Move(Adventurers ads){
+    public void Move(Adventurer ad){
     // CONDITIONS:
     // They spawn in the outer rooms and move clockwise or counterclockwise.
     // They won't move if an Adventurer is present on the floor.
 
     // Check if there's an adventurer present on the floor
 
-        if (!adventurerPresent(ads)) {
+        if (!adventurerPresent(ad)) {
             // Generate a random direction (clockwise or counterclockwise)
             Random rand = new Random();
             boolean clockwise = rand.nextBoolean();

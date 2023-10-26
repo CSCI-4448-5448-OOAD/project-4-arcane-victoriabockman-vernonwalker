@@ -40,4 +40,6 @@ public interface GameObserver {
     // logger method to flush and close the current text file
     public void closeFile();
 
+    public void loggerDeleter();
+
 }

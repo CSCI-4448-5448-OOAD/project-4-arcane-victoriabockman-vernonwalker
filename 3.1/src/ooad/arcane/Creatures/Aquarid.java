@@ -3,8 +3,7 @@ package ooad.arcane.Creatures;
 import java.util.Random;
 
 import ooad.arcane.Room;
-import ooad.arcane.Adventurer.Adventurer;
-import ooad.arcane.Adventurer.Adventurers;
+import ooad.arcane.Adventurer.Adventurer; 
 
 public class Aquarid extends Creatures{
     
